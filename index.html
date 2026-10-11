@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анастасия | Персональный подбор wellness-решений</title>
+   
+    <!-- Подключение Tailwind CSS для премиального и адаптивного UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+    <!-- Настройка цветовой палитры и шрифтов -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        milk: '#FDFBF7',
+                        beige: {
+                            100: '#F5EBE1',
+                            200: '#EAE0D5',
+                            300: '#E6D5C3',
+                            500: '#C2A88F',
+                        },
+                        sand: '#D4C3B3',
+                        brown: '#A8927E',
+                        graphite: '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+
+    <!-- Пользовательские стили для анимаций и деталей -->
+    <style>
+        body {
+            background-color: #FDFBF7; /* milk */
+            color: #333333; /* graphite */
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+        /* Премиальные скругления и тени */
+        .premium-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px -10px rgba(168, 146, 126, 0.1);
+            transition: all 0.3s ease;
+        }
+       
+        .quiz-option {
+            background: #FDFBF7;
+            border: 1px solid #EAE0D5;
+            transition: all 0.2s ease;
+        }
+       
+        .quiz-option:hover {
+            border-color: #C2A88F;
+            background: #F5EBE1;
+        }
+       
+        .quiz-option.selected {
+            border-color: #A8927E;
+            background: #EAE0D5;
+            font-weight: 500;
+        }
+
+
+        /* Плавные анимации появления */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+       
+        .slide-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* Анимация перехода в квизе */
+        .quiz-transition-enter {
+            opacity: 0;
+            transform: translateX(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .quiz-transition-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+
+        /* Кастомный прогресс-бар */
+        .progress-bar-fill {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-graphite selection:bg-beige-300 selection:text-graphite">
+
+
+    <!-- HEADER -->
+    <header class="fixed w-full top-0 z-50 bg-milk/80 backdrop-blur-md border-b border-beige-200/50 transition-all duration-300" id="header">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="font-serif text-xl tracking-wide text-graphite font-medium">
+                Anastasia.
+            </div>
+            <a href="#quiz-section" class="text-sm font-medium text-brown hover:text-graphite transition-colors">
+                Пройти подбор
+            </a>
+        </div>
+    </header>
+
+
+    <main>
+        <!-- ПЕРВЫЙ ЭКРАН (HERO) -->
+        <section class="pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center text-center max-w-4xl mx-auto slide-up">
+            <span class="text-brown text-sm font-semibold tracking-widest uppercase mb-6 block">Персональный подход</span>
+            <h1 class="font-serif text-4xl md:text-6xl text-graphite leading-tight mb-6">
+                Начните с вашей цели — <br>
+                <span class="text-brown italic">подберём подходящее решение</span>
+            </h1>
+            <p class="text-lg md:text-xl text-graphite/80 mb-10 max-w-2xl font-light">
+                Ответьте на несколько вопросов — и получите персональный ориентир, с чего начать работу над своим самочувствием и красотой.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 items-center">
+                <a href="#quiz-section" class="bg-graphite text-white px-8 py-4 rounded-full text-base font-medium hover:bg-brown transition-colors shadow-lg w-full sm:w-auto text-center">
+                    Подобрать решение
+                </a>
+                <span class="text-sm text-graphite/50 font-light mt-2 sm:mt-0">Займёт всего пару минут</span>
+            </div>
+        </section>
+
+
+        <!-- КАК ЭТО РАБОТАЕТ -->
+        <section class="py-20 bg-beige-100/50 px-6">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-serif text-3xl md:text-4xl text-center mb-16">Как это работает</h2>
+               
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- Шаг 1 -->
+                    <div class="flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2 hover:scale-105 p-6 rounded-2xl bg-white/40 backdrop-blur-sm border border-beige-200/50 shadow-sm hover:shadow-md">
+                        <div class="w-12 h-12 rounded-full border border-brown flex items-center justify-center text-brown font-serif text-xl mb-6 transition-colors duration-300 hover:bg-brown hover:text-white">01</div>
+                        <h3 class="font-medium mb-2">Ваша цель</h3>
+                        <p class="text-sm text-graphite/70 font-light">Вы рассказываете о том, что хотите улучшить.</p>
+                    </div>
+                    <!-- Шаг 2 -->
+                    <div class="flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2 hover:scale-105 p-6 rounded-2xl bg-white/40 backdrop-blur-sm border border-beige-200/50 shadow-sm hover:shadow-md">
+                        <div class="w-12 h-12 rounded-full border border-brown flex items-center justify-center text-brown font-serif text-xl mb-6 transition-colors duration-300 hover:bg-brown hover:text-white">02</div>
+                        <h3 class="font-medium mb-2">Несколько вопросов</h3>
+                        <p class="text-sm text-graphite/70 font-light">Отвечаете на простые уточняющие вопросы.</p>
+                    </div>
+                    <!-- Шаг 3 -->
+                    <div class="flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2 hover:scale-105 p-6 rounded-2xl bg-white/40 backdrop-blur-sm border border-beige-200/50 shadow-sm hover:shadow-md">
+                        <div class="w-12 h-12 rounded-full border border-brown flex items-center justify-center text-brown font-serif text-xl mb-6 transition-colors duration-300 hover:bg-brown hover:text-white">03</div>
+                        <h3 class="font-medium mb-2">Ориентир</h3>
+                        <p class="text-sm text-graphite/70 font-light">Получаете персональное направление и рекомендации.</p>
+                    </div>
+                    <!-- Шаг 4 -->
+                    <div class="flex flex-col items-center text-center transform transition-all duration-500 hover:-translate-y-2 hover:scale-105 p-6 rounded-2xl bg-white/40 backdrop-blur-sm border border-beige-200/50 shadow-sm hover:shadow-md">
+                        <div class="w-12 h-12 rounded-full bg-brown text-white flex items-center justify-center font-serif text-xl mb-6 shadow-md transition-transform duration-300 hover:rotate-6">04</div>
+                        <h3 class="font-medium mb-2">Консультация</h3>
+                        <p class="text-sm text-graphite/70 font-light">При желании мы детально разбираем ваш запрос лично.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ИНТЕРАКТИВНЫЙ ПОДБОР (КВИЗ) -->
+        <section id="quiz-section" class="py-24 px-6 relative">
+            <div class="max-w-3xl mx-auto">
+               
+                <!-- Контейнер Квиза -->
+                <div id="quiz-container" class="premium-card p-8 md:p-12 relative overflow-hidden">
+                   
+                    <!-- Шапка квиза (Прогресс) -->
+                    <div class="mb-10">
+                        <div class="flex justify-between text-sm text-graphite/60 font-medium mb-3">
+                            <span id="quiz-step-text">Вопрос 1 из 6</span>
+                            <button id="btn-back" class="hidden hover:text-brown transition-colors flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                                Назад
+                            </button>
+                        </div>
+                        <div class="w-full bg-beige-200 rounded-full h-1.5">
+                            <div id="quiz-progress" class="bg-brown h-1.5 rounded-full progress-bar-fill" style="width: 16%;"></div>
+                        </div>
+                    </div>
+
+
+                    <!-- Динамический контент вопроса -->
+                    <div id="question-area" class="min-h-[250px]">
+                        <h3 id="question-title" class="font-serif text-2xl md:text-3xl mb-8">Загрузка...</h3>
+                        <div id="options-container" class="flex flex-col gap-3">
+                            <!-- Варианты генерируются через JS -->
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <!-- Контейнер Результата (Изначально скрыт) -->
+                <div id="result-container" class="hidden premium-card p-8 md:p-12 slide-up">
+                    <div class="text-center mb-10">
+                        <span class="text-brown text-sm font-semibold tracking-widest uppercase mb-4 block">Подбор завершен</span>
+                        <h2 class="font-serif text-3xl md:text-4xl mb-4">Ваш персональный ориентир</h2>
+                        <p class="text-graphite/80 font-light" id="result-description">
+                            Анализируем ваши ответы...
+                        </p>
+                    </div>
+
+
+                    <!-- Форма заявки -->
+                    <div class="bg-beige-100/50 p-6 rounded-2xl border border-beige-200 mb-8">
+                        <h3 class="font-medium text-lg mb-2">Сделаем следующий шаг?</h3>
+                        <p class="text-sm text-graphite/70 mb-6 font-light">Оставьте контакты, я изучу ваши ответы и свяжусь с вами, чтобы обсудить детали и подобрать конкретные продукты без навязывания.</p>
+                       
+                        <form id="lead-form" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-graphite/70 mb-1 pl-1">Ваше имя</label>
+                                <input type="text" id="form-name" required class="w-full px-4 py-3 rounded-xl border border-beige-200 bg-white focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown transition-colors" placeholder="Как к вам обращаться?">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-graphite/70 mb-1 pl-1">Телефон или Telegram/WhatsApp</label>
+                                <input type="text" id="form-contact" required class="w-full px-4 py-3 rounded-xl border border-beige-200 bg-white focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown transition-colors" placeholder="+7 (999) 000-00-00 или @username">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-graphite/70 mb-1 pl-1">Комментарий (необязательно)</label>
+                                <textarea id="form-comment" rows="2" class="w-full px-4 py-3 rounded-xl border border-beige-200 bg-white focus:outline-none focus:border-brown focus:ring-1 focus:ring-brown transition-colors" placeholder="Ваши пожелания или сомнения..."></textarea>
+                            </div>
+                            <button type="submit" id="btn-submit" class="w-full bg-graphite text-white px-8 py-4 rounded-xl text-base font-medium hover:bg-brown transition-colors mt-2">
+                                Получить консультацию
+                            </button>
+                            <p class="text-xs text-center text-graphite/50 mt-4">Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+                        </form>
+                    </div>
+                </div>
+               
+                <!-- Экран успеха после формы -->
+                <div id="success-container" class="hidden premium-card p-12 text-center slide-up">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    </div>
+                    <h2 class="font-serif text-3xl mb-4">Спасибо за доверие!</h2>
+                    <p class="text-graphite/80 font-light mb-8">
+                        Я получила ваши ответы. Внимательно всё изучу и свяжусь с вами в ближайшее время для персональной консультации.
+                    </p>
+                    <a href="#" onclick="location.reload()" class="text-brown hover:text-graphite font-medium transition-colors border-b border-brown pb-1">
+                        Вернуться на главную
+                    </a>
+                </div>
+
+
+            </div>
+        </section>
+
+
+        <!-- БЛОК ОБО МНЕ -->
+        <section class="py-20 bg-white px-6">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2">
+                    <!-- Фотография Анастасии -->
+                    <div class="aspect-[4/5] bg-beige-200 rounded-3xl overflow-hidden relative shadow-md">
+                        <img src="https://optim.tildacdn.pub/tild3235-6630-4462-a337-623237633765/-/format/webp/photo_2026-10-11_23-.jpg.webp"
+                             alt="Анастасия — ваш консультант"
+                             class="w-full h-full object-cover object-center"
+                             onerror="this.src='https://placehold.co/600x750/EAE0D5/333333?text=Anastasia'">
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="font-serif text-3xl md:text-4xl mb-6">Здравствуйте, я Анастасия</h2>
+                    <div class="space-y-4 text-graphite/80 font-light text-lg">
+                        <p>Я помогаю подобрать подходящие продукты и решения, ориентируясь прежде всего на цель и потребности человека.</p>
+                        <p>Поэтому здесь мы начинаем не с каталога, а с вас.</p>
+                        <p>Пройдите небольшой подбор, получите свой первый ориентир, а если останутся вопросы — я с радостью помогу разобраться лично, без давления и навязывания.</p>
+                    </div>
+                    <div class="mt-10">
+                        <a href="#quiz-section" class="inline-block border border-graphite text-graphite px-8 py-4 rounded-full text-base font-medium hover:bg-graphite hover:text-white transition-colors">
+                            Начать подбор
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- FAQ -->
+        <section class="py-24 bg-milk px-6">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="font-serif text-3xl md:text-4xl text-center mb-12">Частые вопросы</h2>
+               
+                <div class="space-y-4" id="faq-container">
+                    <!-- FAQ Items генерируются через JS для чистоты HTML -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ФИНАЛЬНЫЙ CTA -->
+        <section class="py-24 bg-beige-300 px-6 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="font-serif text-3xl md:text-5xl mb-6 text-graphite">Не знаете, с чего начать?</h2>
+                <p class="text-lg md:text-xl text-graphite/80 mb-10 font-light">
+                    Начните с вашей цели — остальное разберём вместе.
+                </p>
+                <a href="#quiz-section" class="bg-graphite text-white px-10 py-5 rounded-full text-lg font-medium hover:bg-white hover:text-graphite transition-colors shadow-xl inline-block">
+                    Подобрать решение
+                </a>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="bg-graphite text-white/70 py-12 px-6 text-sm font-light">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="font-serif text-xl tracking-wide text-white">Anastasia.</div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Telegram</a>
+                <a href="#" class="hover:text-white transition-colors">WhatsApp</a>
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+            </div>
+            <div>&copy; 2026 Все права защищены. Консультант NL.</div>
+        </div>
+    </footer>
+
+
+
+
+    <!-- ========================================== -->
+    <!-- АРХИТЕКТУРА JAVASCRIPT (ЛОГИКА И ДАННЫЕ)   -->
+    <!-- ========================================== -->
+    <script>
+        /**
+         * 1. СТРУКТУРА ДАННЫХ И НАПРАВЛЕНИЙ
+         * Здесь хранятся направления, которые мы выдаем как результат.
+         */
+        const DIRECTIONS = {
+            weight: {
+                title: "Контроль веса и работа с рационом",
+                desc: "В первую очередь стоит рассмотреть функциональное питание для мягкой корректировки рациона и продукты, поддерживающие метаболизм."
+            },
+            nutrition: {
+                title: "Питание и функциональные продукты",
+                desc: "Обратите внимание на сбалансированные коктейли (функциональное питание), которые помогут восполнить дефициты при быстром темпе жизни."
+            },
+            drain: {
+                title: "Снятие отёчности и дренаж",
+                desc: "Для вашей цели отлично подойдут дренирующие напитки (например, DrainEffect), которые помогают мягко выводить лишнюю жидкость."
+            },
+            beauty: {
+                title: "Красота, кожа, волосы и ногти",
+                desc: "Вам стоит присмотреться к курсам пептидного коллагена, антиоксидантным комплексам и специализированным бьюти-напиткам."
+            },
+            vitamins: {
+                title: "Витамины, минералы и поддержка иммунитета",
+                desc: "Начните с базовой поддержки: магний, витамины D3, группы B, или комплексные адаптогены вроде BioDrone."
+            },
+            digestion: {
+                title: "ЖКТ и комфортное пищеварение",
+                desc: "Обратите внимание на продукты для поддержки микрофлоры и мягкого очищения организма."
+            },
+            consult: {
+                title: "Комплексный подход",
+                desc: "Ваш запрос требует индивидуального разбора. Лучше всего начать с личной консультации, чтобы подобрать точную комбинацию."
+            }
+        };
+
+
+        /**
+         * 2. МАССИВ ВОПРОСОВ И ОТВЕТОВ
+         * Подготовлено для легкого редактирования.
+         * В некоторых вопросах есть логика ветвления (dynamicOptions).
+         */
+        const QUESTIONS = [
+            {
+                id: 'q1',
+                text: 'С какой целью вы пришли?',
+                options: [
+                    { label: 'Хочу подобрать продукты для себя', value: 'self' },
+                    { label: 'Хочу решить конкретную задачу', value: 'task' },
+                    { label: 'Хочу подобрать комплекс', value: 'complex' },
+                    { label: 'Пока не знаю, что мне нужно', value: 'dont_know' }
+                ]
+            },
+            {
+                id: 'q2',
+                text: 'Что сейчас для вас наиболее актуально?',
+                options: [
+                    { label: 'Контроль веса', value: 'weight', directionId: 'weight' },
+                    { label: 'Питание (нехватка времени, перекусы)', value: 'nutrition', directionId: 'nutrition' },
+                    { label: 'Отёчность', value: 'drain', directionId: 'drain' },
+                    { label: 'Кожа и уход за собой', value: 'beauty', directionId: 'beauty' },
+                    { label: 'Коллаген, волосы и ногти', value: 'collagen', directionId: 'beauty' },
+                    { label: 'Витамины и минералы', value: 'vitamins', directionId: 'vitamins' },
+                    { label: 'ЖКТ и пищеварение', value: 'digestion', directionId: 'digestion' },
+                    { label: 'Не знаю, с чего начать', value: 'dont_know', directionId: 'consult' }
+                ]
+            },
+            {
+                id: 'q3',
+                text: 'Что для вас сейчас важнее всего?',
+                // Функция для динамического формирования ответов на основе Q2
+                dynamicOptions: (answers) => {
+                    const focus = answers.q2?.value;
+                    if (focus === 'weight') return [
+                        { label: 'Снизить аппетит и тягу к сладкому', value: 'appetite' },
+                        { label: 'Заменить 1-2 приема пищи', value: 'replace_meal' },
+                        { label: 'Ускорить обмен веществ', value: 'metabolism' }
+                    ];
+                    if (focus === 'beauty' || focus === 'collagen') return [
+                        { label: 'Анти-эйдж эффект и упругость кожи', value: 'antiage' },
+                        { label: 'Увлажнение и сияние', value: 'glow' },
+                        { label: 'Укрепление волос и ногтей', value: 'hair_nails' }
+                    ];
+                    if (focus === 'drain') return [
+                        { label: 'Убрать утреннюю отечность', value: 'morning_drain' },
+                        { label: 'Уменьшить объемы тела', value: 'body_volume' }
+                    ];
+                    // Дефолтные ответы для остальных случаев
+                    return [
+                        { label: 'Быстрый и видимый результат', value: 'fast_result' },
+                        { label: 'Мягкое накопительное действие', value: 'soft_action' },
+                        { label: 'Просто поддержать здоровье', value: 'support' },
+                        { label: 'Нужна помощь в определении', value: 'need_help' }
+                    ];
+                }
+            },
+            {
+                id: 'q4',
+                text: 'Какой формат вам ближе?',
+                options: [
+                    { label: 'Хочу начать с одного продукта на пробу', value: 'single' },
+                    { label: 'Готова рассмотреть комплексный подход', value: 'complex' },
+                    { label: 'Пока не знаю', value: 'dont_know' }
+                ]
+            },
+            {
+                id: 'q5',
+                text: 'Пользовались ли вы подобными (wellness/бады) продуктами раньше?',
+                options: [
+                    { label: 'Да, регулярно', value: 'regular' },
+                    { label: 'Иногда покупаю', value: 'sometimes' },
+                    { label: 'Нет, хочу попробовать впервые', value: 'never' }
+                ]
+            },
+            {
+                id: 'q6',
+                text: 'Хотите получить персональную консультацию после подбора?',
+                options: [
+                    { label: 'Да, хочу разобраться подробнее', value: 'yes' },
+                    { label: 'Пока хочу просто получить ориентир', value: 'later' }
+                ]
+            }
+        ];
+
+
+        /**
+         * 3. STATE (СОСТОЯНИЕ ПРИЛОЖЕНИЯ)
+         */
+        const AppState = {
+            currentStep: 0,
+            answers: {},     // Формат: { q1: {label, value}, q2: {label, value, directionId}... }
+            direction: null  // Вычисленное направление
+        };
+
+
+        /**
+         * 4. UI ДВИЖОК
+         */
+        const UI = {
+            questionTitle: document.getElementById('question-title'),
+            optionsContainer: document.getElementById('options-container'),
+            stepText: document.getElementById('quiz-step-text'),
+            progressBar: document.getElementById('quiz-progress'),
+            btnBack: document.getElementById('btn-back'),
+            quizContainer: document.getElementById('quiz-container'),
+            resultContainer: document.getElementById('result-container'),
+            resultDescription: document.getElementById('result-description'),
+            form: document.getElementById('lead-form'),
+            successContainer: document.getElementById('success-container')
+        };
+
+
+        // Инициализация квиза
+        function initQuiz() {
+            renderQuestion();
+           
+            UI.btnBack.addEventListener('click', () => {
+                if (AppState.currentStep > 0) {
+                    AppState.currentStep--;
+                    renderQuestion();
+                }
+            });
+
+
+            UI.form.addEventListener('submit', handleFormSubmit);
+        }
+
+
+        // Отрисовка текущего вопроса
+        function renderQuestion() {
+            const question = QUESTIONS[AppState.currentStep];
+           
+            // Анимация ухода/прихода текста
+            UI.questionTitle.style.opacity = 0;
+            UI.optionsContainer.style.opacity = 0;
+           
+            setTimeout(() => {
+                // Текст вопроса
+                UI.questionTitle.innerText = question.text;
+               
+                // Прогресс
+                const progressPct = ((AppState.currentStep + 1) / QUESTIONS.length) * 100;
+                UI.progressBar.style.width = `${progressPct}%`;
+                UI.stepText.innerText = `Вопрос ${AppState.currentStep + 1} из ${QUESTIONS.length}`;
+               
+                // Кнопка назад
+                if (AppState.currentStep === 0) {
+                    UI.btnBack.classList.add('hidden');
+                } else {
+                    UI.btnBack.classList.remove('hidden');
+                }
+
+
+                // Генерация опций
+                UI.optionsContainer.innerHTML = '';
+               
+                // Проверяем, статические ли опции или динамические
+                const options = question.dynamicOptions
+                    ? question.dynamicOptions(AppState.answers)
+                    : question.options;
+
+
+                options.forEach((opt, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-option w-full text-left px-6 py-4 rounded-xl text-lg flex items-center justify-between cursor-pointer';
+                   
+                    // Если этот ответ уже был выбран ранее (при возврате назад)
+                    const prevAnswer = AppState.answers[question.id];
+                    if (prevAnswer && prevAnswer.value === opt.value) {
+                        btn.classList.add('selected');
+                    }
+
+
+                    btn.innerHTML = `
+                        <span>${opt.label}</span>
+                        <div class="w-5 h-5 rounded-full border border-brown flex items-center justify-center pointer-events-none">
+                            ${prevAnswer && prevAnswer.value === opt.value ? '<div class="w-3 h-3 bg-brown rounded-full"></div>' : ''}
+                        </div>
+                    `;
+                   
+                    btn.onclick = () => handleSelect(question.id, opt);
+                   
+                    // Задержка появления кнопок для красоты
+                    btn.style.opacity = 0;
+                    btn.style.animation = `slideUp 0.4s ease forwards ${index * 0.1}s`;
+                   
+                    UI.optionsContainer.appendChild(btn);
+                });
+
+
+                UI.questionTitle.style.opacity = 1;
+                UI.optionsContainer.style.opacity = 1;
+            }, 200);
+        }
+
+
+        // Обработка выбора
+        function handleSelect(questionId, optionData) {
+            // Сохраняем ответ
+            AppState.answers[questionId] = optionData;
+           
+            // Если ответили на вопрос, где определяется направление (q2)
+            if (optionData.directionId) {
+                AppState.direction = DIRECTIONS[optionData.directionId] || DIRECTIONS.consult;
+            }
+
+
+            // Визуальный отклик (перерисовываем кнопки, чтобы показать выбор)
+            const buttons = UI.optionsContainer.querySelectorAll('.quiz-option');
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                btn.querySelector('.w-5').innerHTML = ''; // убираем точку
+                if (btn.innerText.includes(optionData.label)) {
+                    btn.classList.add('selected');
+                    btn.querySelector('.w-5').innerHTML = '<div class="w-3 h-3 bg-brown rounded-full"></div>';
+                }
+            });
+
+
+            // Небольшая задержка перед переходом дальше (для UX)
+            setTimeout(() => {
+                if (AppState.currentStep < QUESTIONS.length - 1) {
+                    AppState.currentStep++;
+                    renderQuestion();
+                } else {
+                    finishQuiz();
+                }
+            }, 400);
+        }
+
+
+        // Завершение квиза и показ результата
+        function finishQuiz() {
+            // Скрываем квиз, показываем результат
+            UI.quizContainer.style.display = 'none';
+            UI.resultContainer.classList.remove('hidden');
+
+
+            // Формируем текст результата
+            // По умолчанию направление определяется из Q2
+            let dir = AppState.direction;
+            if (!dir) dir = DIRECTIONS.consult; // Fallback
+
+
+            const focusAnswerText = AppState.answers['q2'] ? AppState.answers['q2'].label : 'улучшение самочувствия';
+
+
+            UI.resultDescription.innerHTML = `
+                Вы указали, что для вас сейчас наиболее актуально: <strong>«${focusAnswerText}»</strong>.<br><br>
+                По вашим ответам, оптимальное направление для старта: <br>
+                <span class="text-xl font-serif text-brown block mt-4 mb-2">${dir.title}</span>
+                ${dir.desc}
+            `;
+           
+            // Плавный скролл к результату
+            UI.resultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+
+        /**
+         * 5. СТРУКТУРИРОВАНИЕ И ОТПРАВКА ЗАЯВКИ
+         */
+        function handleFormSubmit(e) {
+            e.preventDefault();
+           
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.innerText = 'Отправка...';
+            btnSubmit.disabled = true;
+
+
+            // Формирование структурированного объекта (Data Structure)
+            const leadData = {
+                name: document.getElementById('form-name').value,
+                contact: document.getElementById('form-contact').value,
+                comment: document.getElementById('form-comment').value,
+                directionTitle: AppState.direction ? AppState.direction.title : 'Не определено',
+                answers: AppState.answers,
+                timestamp: new Date().toISOString()
+            };
+
+
+            // ! ВАЖНО ДЛЯ РАЗРАБОТЧИКА:
+            // Здесь в будущем подключается API отправки в Telegram/CRM.
+            // Пример: fetch('твой_api_url', { method: 'POST', body: JSON.stringify(leadData) })
+           
+            console.log("=== НОВАЯ ЗАЯВКА СФОРМИРОВАНА ===");
+            console.log(JSON.stringify(leadData, null, 2));
+
+
+            // Имитация задержки сети
+            setTimeout(() => {
+                UI.resultContainer.style.display = 'none';
+                UI.successContainer.classList.remove('hidden');
+               
+                // Очистка формы
+                UI.form.reset();
+            }, 1000);
+        }
+
+
+        /**
+         * 6. РЕНДЕР FAQ (Чтобы не перегружать HTML)
+         */
+        const FAQ_DATA = [
+            { q: "Сколько времени занимает подбор?", a: "Всего 1-2 минуты. Вам нужно ответить на 6 простых вопросов, чтобы система сформировала вектор." },
+            { q: "Нужно ли покупать что-то сразу после прохождения теста?", a: "Нет, абсолютно. Этот инструмент создан для того, чтобы помочь вам сориентироваться, а не для агрессивных продаж." },
+            { q: "Что происходит после отправки заявки?", a: "Я получаю ваши ответы, анализирую их и связываюсь с вами в удобном мессенджере. Мы обсуждаем ваш запрос подробнее, и я предлагаю конкретные решения." },
+            { q: "Можно ли подобрать комплекс?", a: "Да, конечно. Если вы готовы к комплексному подходу, мы подберем программу, где продукты будут усиливать действие друг друга." }
+        ];
+
+
+        function renderFAQ() {
+            const container = document.getElementById('faq-container');
+            FAQ_DATA.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'border-b border-beige-200 pb-4';
+                div.innerHTML = `
+                    <button class="w-full text-left py-4 flex justify-between items-center focus:outline-none" onclick="toggleFaq(${index})">
+                        <span class="font-medium text-lg">${item.q}</span>
+                        <svg id="faq-icon-${index}" class="w-5 h-5 text-brown transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div id="faq-answer-${index}" class="hidden text-graphite/70 font-light pb-4 pr-8">
+                        ${item.a}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+
+        // Простой аккордеон для FAQ
+        function toggleFaq(index) {
+            const answer = document.getElementById(`faq-answer-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+           
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                answer.classList.add('fade-in');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.classList.add('hidden');
+                answer.classList.remove('fade-in');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+
+        // Запуск приложения при загрузке DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            renderFAQ();
+        });
+
+
+    </script>
+</body>
+</html>
+
